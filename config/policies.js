@@ -41,7 +41,7 @@ module.exports.policies = {
     'destroy': ['isAuthenticated', 'isCreator']
   },
 
-  'User_roleController': {
+  'User_rolesController': {
     '*': ['isAuthenticated'],
     'find': ['isAuthenticated', 'isReader'],
     'findOne': ['isAuthenticated', 'isReader'],
