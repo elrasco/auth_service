@@ -4,7 +4,7 @@ module.exports = function (req, res, next) {
 		User_roles
 		.findOne(
 			{user_id: req.user.id,
-				role_name: 'platform'
+				role: 'platform'
 			}
 		)
 		.then(function(role) {

@@ -5,7 +5,7 @@ module.exports = function (req, res, next) {
 		.findOne(
 			{
 				user_id: req.user.id,
-				role_name: 'creator'
+				role: 'creator'
 			}
 		)
 		.then(function(role) {
