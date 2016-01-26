@@ -8,6 +8,26 @@
 
 module.exports = {
 
+
+    isValidToken: function(req, res){
+
+        var type = !req.body.type? 'user':req.body.type;
+        var auth = true;
+
+        try {
+          jwToken(type).verify(req.body.token);
+        } catch (ex) {
+          auth = false;
+        }
+
+        res.json(
+        {
+          auth: auth
+        }
+      );
+
+    },
+
     isAuthenticated: function(req, res) {
       res.json(
         {
@@ -51,7 +71,9 @@ module.exports = {
                   return res.send({
                     token: jwToken(type).issue(
                       {
-                        user_id: user.id
+                        user: {
+                          id: user.id
+                        }
                       }
                     )
                   });

@@ -18,7 +18,7 @@ module.exports = {
 			type: 'string',
 			protected: true
 		},
-		phone_prefix: 'string',
+		country_code: 'string',
 		phone: 'string',
 		enable: 'boolean',
 		first_time: 'boolean',
@@ -28,7 +28,7 @@ module.exports = {
   		},
 		createdBy: 'integer',
 		roles: {
-	  		collection: 'user_role',
+	  		collection: 'user_roles',
 	  		via: 'user_id'
 	  	},
 

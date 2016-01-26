@@ -31,18 +31,23 @@ module.exports.policies = {
   '*': true,
 
   //'login': true,
-/*
+
   'UserController': {
     '*': ['isAuthenticated'],
-    'find': ['isReader'],
-    'findOne': ['isReader'],
-    'create': ['isCreator'],
-    'update': ['isAdmin'],
-    'destroy': ['isAdmin']
+    'find': ['isAuthenticated', 'isReader'],
+    'findOne': ['isAuthenticated', 'isReader'],
+    'create': ['isAuthenticated', 'isCreator'],
+    'update': ['isAuthenticated', 'isCreator'],
+    'destroy': ['isAuthenticated', 'isCreator']
   },
-*/
+
   'User_roleController': {
-    '*': ['isAuthenticated', 'isAdmin']
+    '*': ['isAuthenticated'],
+    'find': ['isAuthenticated', 'isReader'],
+    'findOne': ['isAuthenticated', 'isReader'],
+    'create': ['isAuthenticated', 'isCreator'],
+    'update': ['isAuthenticated', 'isCreator'],
+    'destroy': ['isAuthenticated', 'isCreator']
   }
 
   /***************************************************************************

@@ -27,7 +27,6 @@ module.exports.bootstrap = function(cb) {
 	req.isAuthenticated = function() {
 
 	  var token;
-console.log(this.headers);
 
 	  if (this.headers && this.headers.authorization) {
 
@@ -52,7 +51,9 @@ console.log(this.headers);
 	  }
 
 	  try {
-			this.user = jwToken('user').verify(token);
+	  		var token_content = jwToken('service').verify(token);
+	  		console.log(token_content);
+			this.user = token_content.user;
 			return true;
 	  } catch (ex) {
 	  	return false;
