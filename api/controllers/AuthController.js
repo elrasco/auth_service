@@ -39,7 +39,7 @@ module.exports = {
     login: function(req, res) {
  
       if(!req.body){
-        res.status(403).send('Missing datas');
+        res.status(400).send({code: 400, message: 'Missing datas'});
       }
       else{
         
@@ -49,7 +49,7 @@ module.exports = {
         var password_empty = !req.body.password || req.body.password == '';
 
         if(email_empty || password_empty){
-          res.status(403).send('Missing datas');
+          res.status(400).send({code: 400, message: 'Missing datas'});
         }
         else{
 
@@ -69,21 +69,15 @@ module.exports = {
                 if (u) {
 
                   return res.send({
-                    token: jwToken(type).issue(
-                      {
-                        user: {
-                          id: user.id
-                        }
-                      }
-                    )
+                    token: jwToken(type).issue(user)
                   });
                 }
                 else{
-                  res.status(403).send('Missing user');
+                  res.status(401).send({code: 401, message: 'Invalid username/password'});
                 }
               });
             } else {
-              res.status(401).send('Invalid password');
+              res.status(401).send({code: 401, message: 'Invalid username/password'});
             }
           });
 
