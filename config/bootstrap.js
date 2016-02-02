@@ -51,9 +51,7 @@ module.exports.bootstrap = function(cb) {
 	  }
 
 	  try {
-	  		var token_content = jwToken('service').verify(token);
-	  		console.log(token_content);
-			this.user = token_content.user;
+			this.user = jwToken('service').verify(token);
 			return true;
 	  } catch (ex) {
 	  	return false;
