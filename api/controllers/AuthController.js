@@ -59,15 +59,17 @@ module.exports = {
               enable: true
             }
           )
+          .populate('roles')
           .exec(function(err, user) {
-
             if (err) {
               throw err;
             }
             if (user) {
               user.comparePassword(req.body.password, function(u, msg) {
                 if (u) {
-
+                  user.roles = user.roles.map(function(role) {
+                    return role.role;
+                  });
                   return res.send({
                     token: jwToken(type).issue(user)
                   });
