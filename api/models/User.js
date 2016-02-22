@@ -11,58 +11,89 @@ module.exports = {
 
   	attributes: {
 
-	  	name: 'string',
-		lastname: 'string',
-		email: 'string',
+	  	name: {
+            type: Sequelize.STRING
+        },
+		lastname: {
+            type: Sequelize.STRING
+        },
+		email: {
+            type: Sequelize.STRING
+        },
 		password: {
-			type: 'string',
-			protected: true
-		},
-		country_code: 'string',
-		phone: 'string',
-		enable: 'boolean',
-		first_time: 'boolean',
+            type: Sequelize.STRING,
+            protected: true
+        },
+		country_code: {
+            type: Sequelize.STRING
+        },
+		phone: {
+            type: Sequelize.STRING
+        },
+		enable: {
+            type: Sequelize.STRING
+        },
+		first_time: {
+            type: Sequelize.BOOLEAN
+        },
 		type: {
-    		type: 'string',
-		    enum: ['service', 'user']
+			type: Sequelize.ENUM('user', 'service')
   		},
-		createdBy: 'integer',
-		roles: {
-	  		collection: 'user_roles',
-	  		via: 'user_id'
-	  	},
-
-	  	comparePassword: function(password, done) {
-
-	      var _this = this;
-
-	      bcrypt.compare(password, this.password, function (err, res) {
-	      	
-	        if (!res)
-	          return done(false, {
-	            message: 'Invalid Password'
-	          });
-	        
-	        return done(true, {
-	          message: 'Logged In Successfully'
-	        });
-	      });
-	    }
+		createdBy: {
+			type: Sequelize.INTEGER
+		}
 	},
 
-	beforeCreate: function(user, cb) {
+	associations: function() {
+		User.hasMany(User_roles, {as: 'roles', foreignKey: 'user_id'})
+	},
 
-	    bcrypt.genSalt(10, function(err, salt) {
-	      bcrypt.hash(user.password, salt, function(err, hash) {
-	        if (err) {
-	          console.log(err);
-	          cb(err);
-	        }else{
-	          user.password = hash;
-	          cb(null, user);
-	        }
-	      });
-	    });
+	options: {
+		freezeTableName: false,
+		tableName: 'user',
+		classMethods: {
+			comparePassword: function(password, done) {
+
+			    var _this = this;
+
+			    bcrypt.compare(password, this.password, function (err, res) {
+			      	
+			        if (!res) {
+			        	return done(false, {
+			            	message: 'Invalid Password'
+			          	});
+			        }
+			        
+		        	return done(true, {
+		          		message: 'Logged In Successfully'
+		        	});
+			    });
+		    }	
+		}, 
+		
+		instanceMethods: {},
+
+		hooks: {
+			beforeCreate: function(user, options, cb) {
+
+				console.log('before create');
+
+			    bcrypt.genSalt(10, function(err, salt) {
+			    	bcrypt.hash(user.password, salt, function(err, hash) {
+			        	if (err) {
+			          		console.error(err);
+			          		throw new Error("error hashing user password!!")
+			          		cb(err);
+			        	} else {
+			          		user.password = hash;
+			          		cb(null, user);
+			        	}
+			      	});
+			    });
+
+			}//end beforeCreate
+
+		}
 	}
 	
 };

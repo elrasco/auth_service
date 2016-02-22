@@ -40,6 +40,7 @@ module.exports.connections = {
   * Run: npm install sails-mysql                                             *
   *                                                                          *
   ***************************************************************************/
+  /*
   smallfish_auth: {
     adapter: 'sails-mysql',
     host: 'smallfish-test.cj2ft7z1f8mt.us-west-2.rds.amazonaws.com',
@@ -48,6 +49,23 @@ module.exports.connections = {
     database: 'smallfish_auth',
     connectTimeout: 10000,
     connectionLimit: 20
+  },
+  */
+  smallfish_auth: {
+    user: 'smallfish_test',
+    password: 'smallfish_test01!',
+    database: 'smallfish_auth',
+    dialect: 'mysql',
+    pool: {
+      max: 5,
+      min: 1,
+      idle: 10000
+    },
+    options: {
+      dialect: 'mysql',
+      host: 'smallfish-test.cj2ft7z1f8mt.us-west-2.rds.amazonaws.com',
+      logging: true
+    }
   },
 
   /***************************************************************************
@@ -58,6 +76,7 @@ module.exports.connections = {
   * Run: npm install sails-mongo                                             *
   *                                                                          *
   ***************************************************************************/
+  /*
   someMongodbServer: {
     adapter: 'sails-mongo',
     host: 'localhost',
@@ -66,6 +85,7 @@ module.exports.connections = {
     // password: 'password',
     // database: 'your_mongo_db_name_here'
   },
+  */
 
   /***************************************************************************
   *                                                                          *
@@ -76,6 +96,7 @@ module.exports.connections = {
   *                                                                          *
   *                                                                          *
   ***************************************************************************/
+  /*
   somePostgresqlServer: {
     adapter: 'sails-postgresql',
     host: 'YOUR_POSTGRES_SERVER_HOSTNAME_OR_IP_ADDRESS',
@@ -83,7 +104,7 @@ module.exports.connections = {
     password: 'YOUR_POSTGRES_PASSWORD',
     database: 'YOUR_POSTGRES_DB'
   }
-
+  */
 
   /***************************************************************************
   *                                                                          *

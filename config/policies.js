@@ -32,6 +32,7 @@ module.exports.policies = {
 
   //'login': true,
 
+/*
   'UserController': {
     '*': ['isAuthenticated'],
     'find': ['isAuthenticated', 'isReader'],
@@ -40,7 +41,7 @@ module.exports.policies = {
     'update': ['isAuthenticated', 'isCreator'],
     'destroy': ['isAuthenticated', 'isCreator']
   },
-
+*/
   'User_rolesController': {
     '*': ['isAuthenticated'],
     'find': ['isAuthenticated', 'isReader'],

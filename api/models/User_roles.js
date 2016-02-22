@@ -7,11 +7,22 @@
 
 module.exports = {
 
-  attributes: {
-  	user_id: {
-  		model:'user'
+  	attributes: {
+  		role: {
+  			type: Sequelize.STRING
+  		}
   	},
-  	role: 'string'
-  }
+
+  	associations: function() {
+        
+    },
+
+    options: {
+        freezeTableName: false,
+        tableName: 'user_roles',
+        classMethods: {},
+        instanceMethods: {},
+        hooks: {}
+    }
 };
 
