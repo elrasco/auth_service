@@ -51,27 +51,25 @@ module.exports = {
 	options: {
 		freezeTableName: false,
 		tableName: 'user',
-		classMethods: {
+		classMethods: {}, 
+		
+		instanceMethods: {
 			comparePassword: function(password, done) {
 
 			    var _this = this;
 
 			    bcrypt.compare(password, this.password, function (err, res) {
-			      	
 			        if (!res) {
 			        	return done(false, {
 			            	message: 'Invalid Password'
 			          	});
 			        }
-			        
 		        	return done(true, {
 		          		message: 'Logged In Successfully'
 		        	});
 			    });
-		    }	
-		}, 
-		
-		instanceMethods: {},
+		    }
+		},
 
 		hooks: {
 			beforeCreate: function(user, options, cb) {

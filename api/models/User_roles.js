@@ -14,7 +14,6 @@ module.exports = {
   	},
 
   	associations: function() {
-        
     },
 
     options: {

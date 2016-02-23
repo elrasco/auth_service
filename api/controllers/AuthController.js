@@ -53,25 +53,27 @@ module.exports = {
         }
         else{
 
-          User.findOne(
-            {
+          User.findOne({
+            where: {
               email: req.body.email,
               enable: true
-            }
-          )
-          .populate('roles')
-          .exec(function(err, user) {
-            if (err) {
-              throw err;
-            }
+            },
+            attributes: {exclude: ['updatedAt', 'createdAt']},
+            include: [{
+              model: User_roles, as: 'roles'
+            }]
+          }).then(function(user) {
             if (user) {
               user.comparePassword(req.body.password, function(u, msg) {
                 if (u) {
                   user.roles = user.roles.map(function(role) {
                     return role.role;
                   });
+                  var _user = Object.assign({}, user.dataValues, {roles: user.roles});
+                  delete _user.password;
+
                   return res.send({
-                    token: jwToken(type).issue(user)
+                    token: jwToken(type).issue(_user)
                   });
                 }
                 else{
@@ -81,8 +83,9 @@ module.exports = {
             } else {
               res.status(401).send({code: 401, message: 'Invalid username/password'});
             }
-          });
-
+          }, function(err) {
+            throw err;
+          });          
         }
         
       }
