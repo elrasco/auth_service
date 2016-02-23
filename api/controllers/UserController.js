@@ -6,6 +6,35 @@
  */
 
 module.exports = {
+
+	find: function(req, res) {
+		User.findAll({
+			attributes: {exclude: ['updatedAt', 'createdAt', 'password']},
+			include: [{
+              model: User_roles, as: 'roles', 
+              attributes: {exclude: ['updatedAt', 'createdAt', 'user_id', 'id']}
+            }]
+		})
+		.then(function(users) {
+			res.send(users);
+		}, function(e) {
+
+			res.send(e);
+		})
+	}, 
+
+	resetPassword: function(req, res) {
+		Password.hash(req.body.password)
+		.then(function(hash) {
+			User.update({
+				password: hash
+			}, {
+				where: {email: req.body.email}
+			}).then(function(result) {
+				res.send({updated: result[0]})
+			})
+		});
+	},
 	
 	create: function(req,res){
 
@@ -19,8 +48,10 @@ module.exports = {
 			{
 				transaction: t
 				,include: [User.associations.roles]
+				,raw:true
 
 			}).then(function(created) {
+				delete created.dataValues.password;
 				console.info(`user [${created.id} - ${created.email}] created `);
 				return new Promise(function(resolve, reject) {
 					resolve(created);

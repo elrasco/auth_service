@@ -32,16 +32,17 @@ module.exports.policies = {
 
   //'login': true,
 
-/*
+
   'UserController': {
-    '*': ['isAuthenticated'],
-    'find': ['isAuthenticated', 'isReader'],
-    'findOne': ['isAuthenticated', 'isReader'],
-    'create': ['isAuthenticated', 'isCreator'],
-    'update': ['isAuthenticated', 'isCreator'],
-    'destroy': ['isAuthenticated', 'isCreator']
+    '*':              ['isAuthenticated'],
+    'find':           ['isAuthenticated', 'isReader', 'isSmallfish'],
+    'findOne':        ['isAuthenticated', 'isReader'],
+    'create':         ['isAuthenticated', 'isCreator'],
+    'update':         ['isAuthenticated', 'isCreator'],
+    'destroy':        ['isAuthenticated', 'isCreator'],
+    'resetPassword':  ['isAuthenticated', 'isCreator']
   },
-*/
+
   'User_rolesController': {
     '*': ['isAuthenticated'],
     'find': ['isAuthenticated', 'isReader'],

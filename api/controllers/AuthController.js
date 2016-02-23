@@ -60,7 +60,8 @@ module.exports = {
             },
             attributes: {exclude: ['updatedAt', 'createdAt']},
             include: [{
-              model: User_roles, as: 'roles'
+              model: User_roles, as: 'roles',
+              attributes: {exclude: ['updatedAt', 'createdAt', 'user_id', 'id']}
             }]
           }).then(function(user) {
             if (user) {

@@ -73,22 +73,12 @@ module.exports = {
 
 		hooks: {
 			beforeCreate: function(user, options, cb) {
-
-				console.log('before create');
-
-			    bcrypt.genSalt(10, function(err, salt) {
-			    	bcrypt.hash(user.password, salt, function(err, hash) {
-			        	if (err) {
-			          		console.error(err);
-			          		throw new Error("error hashing user password!!")
-			          		cb(err);
-			        	} else {
-			          		user.password = hash;
-			          		cb(null, user);
-			        	}
-			      	});
-			    });
-
+				Password.hash(user.password).then(function(hash) {
+					user.password = hash;
+			        cb(null, user);
+				}, function(err) {
+					cb(err);
+				})
 			}//end beforeCreate
 
 		}
