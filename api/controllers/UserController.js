@@ -15,14 +15,13 @@ module.exports = {
 
 		var user = req.body;
 		return sequelize.transaction(function(t) {
-			var roles = User.hasMany(User_roles, {as: 'roles', foreignKey: 'user_id'});
 			return User.create(user, 
 			{
 				transaction: t
-				,include: [roles]
+				,include: [User.associations.roles]
 
 			}).then(function(created) {
-				console.info(`user [${created.email}] created `);
+				console.info(`user [${created.id} - ${created.email}] created `);
 				return new Promise(function(resolve, reject) {
 					resolve(created);
 				});
