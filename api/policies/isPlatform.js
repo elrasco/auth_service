@@ -2,10 +2,7 @@ module.exports = function (req, res, next) {
 
 	if (req.user) {
 		return User_roles
-		.findOne({
-			user_id: req.user.id,
-			role: 'platform'
-		})
+		.findOne({user_id: req.user.id,role: 'platform'})
 		.then(function(role) {
 			console.log('im platform');
 			if (role) {
@@ -18,7 +15,7 @@ module.exports = function (req, res, next) {
 			}
 		});
 	} else {
-		res.serverError();	
+		res.forbidden();	
 	}
 
 }
