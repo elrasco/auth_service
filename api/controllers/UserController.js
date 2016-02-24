@@ -44,19 +44,39 @@ module.exports = {
 
 		var user = req.body;
 		return sequelize.transaction(function(t) {
-			return User.create(user, 
-			{
+			//transaction type by default is DEFERRED
+			return User.findOne({
+				attributes: {exclude: ['updatedAt', 'createdAt', 'password']},
+				include: [{
+	              model: User_roles, as: 'roles', 
+	              attributes: {exclude: ['updatedAt', 'createdAt', 'user_id', 'id']}
+	            }],
+				where: {email: user.email}, 
 				transaction: t
-				,include: [User.associations.roles]
-				,raw:true
-
-			}).then(function(created) {
-				delete created.dataValues.password;
-				console.info(`user [${created.id} - ${created.email}] created `);
-				return new Promise(function(resolve, reject) {
-					resolve(created);
-				});
 			})
+			.then(function(found) {
+				if (!found) {
+					return User.create(user, 
+					{
+						transaction: t
+						,include: [User.associations.roles]
+						,raw:true
+
+					}).then(function(created) {
+						delete created.dataValues.password;
+						console.info(`user [${created.id} - ${created.email}] created `);
+						return new Promise(function(resolve, reject) {
+							resolve(created);
+						});
+					})
+				} else {
+					return new Promise(function(resolve, reject) {
+						resolve(found);
+					});
+				}
+
+			});
+			
 		}).then(function(result) {
 			res.send(result);
 		}).catch(function(err) {
