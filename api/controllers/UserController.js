@@ -36,6 +36,9 @@ module.exports = {
 		});
 	},
 	
+	/**
+	 * actually is a findOrCreate
+	 */
 	create: function(req,res){
 
 		if(!req.body.password){
