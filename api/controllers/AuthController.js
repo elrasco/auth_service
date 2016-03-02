@@ -70,7 +70,7 @@ module.exports = {
                   user.roles = user.roles.map(function(role) {
                     return role.role;
                   });
-                  var _user = Object.assign({}, user.dataValues, {roles: user.roles});
+                  var _user = Object.assign({}, user.dataValues, {roles: user.roles}, {extra: req.body.extra});
                   delete _user.password;
 
                   return res.send({
