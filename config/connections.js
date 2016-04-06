@@ -51,7 +51,7 @@ module.exports.connections = {
     connectionLimit: 20
   },
   */
-  smallfish_auth: {
+  smallfish_auth_test: {
     user: 'smallfish_test',
     password: 'smallfish_test01!',
     database: 'smallfish_auth',
@@ -68,48 +68,21 @@ module.exports.connections = {
     }
   },
 
-  /***************************************************************************
-  *                                                                          *
-  * MongoDB is the leading NoSQL database.                                   *
-  * http://en.wikipedia.org/wiki/MongoDB                                     *
-  *                                                                          *
-  * Run: npm install sails-mongo                                             *
-  *                                                                          *
-  ***************************************************************************/
-  /*
-  someMongodbServer: {
-    adapter: 'sails-mongo',
-    host: 'localhost',
-    port: 27017,
-    // user: 'username',
-    // password: 'password',
-    // database: 'your_mongo_db_name_here'
-  },
-  */
-
-  /***************************************************************************
-  *                                                                          *
-  * PostgreSQL is another officially supported relational database.          *
-  * http://en.wikipedia.org/wiki/PostgreSQL                                  *
-  *                                                                          *
-  * Run: npm install sails-postgresql                                        *
-  *                                                                          *
-  *                                                                          *
-  ***************************************************************************/
-  /*
-  somePostgresqlServer: {
-    adapter: 'sails-postgresql',
-    host: 'YOUR_POSTGRES_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_POSTGRES_USER',
-    password: 'YOUR_POSTGRES_PASSWORD',
-    database: 'YOUR_POSTGRES_DB'
+  smallfish_auth: {
+    user: 'smallfish_prod',
+    password: 'smallfish_prod01!',
+    database: 'smallfish_auth',
+    dialect: 'mysql',
+    pool: {
+      max: 15,
+      min: 5,
+      idle: 10000
+    },
+    options: {
+      dialect: 'mysql',
+      host: 'asw-smallfish-prod.cuoyjpk3vtj2.eu-central-1.rds.amazonaws.com',
+      logging: true
+    }
   }
-  */
-
-  /***************************************************************************
-  *                                                                          *
-  * More adapters: https://github.com/balderdashy/sails                      *
-  *                                                                          *
-  ***************************************************************************/
 
 };

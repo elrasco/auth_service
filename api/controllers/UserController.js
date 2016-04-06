@@ -24,16 +24,23 @@ module.exports = {
 	}, 
 
 	resetPassword: function(req, res) {
-		Password.hash(req.body.password)
-		.then(function(hash) {
-			User.update({
-				password: hash
-			}, {
-				where: {email: req.body.email}
-			}).then(function(result) {
-				res.send({updated: result[0]})
-			})
-		});
+		if ( (req.body.email||'').trim() == '' || (req.body.password||'').trim() == '' ) {
+			res.badRequest();
+		} else {
+			Password.hash(req.body.password)
+			.then(function(hash) {
+				User.update({
+					password: hash
+				}, {
+					where: {email: req.body.email}
+				}).then(function(result) {
+					res.send({updated: result[0]})
+				}, function(error) {
+					res.serverError({error});
+				})
+			});
+		};
+		
 	},
 	
 	/**
@@ -88,9 +95,5 @@ module.exports = {
 			console.error(err)
 			res.send({error: err});
 		});
-
 	}
-
-
 };
-

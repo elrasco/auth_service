@@ -52,13 +52,12 @@ module.exports.session = {
   *                                                                          *
   ***************************************************************************/
 
-  // host: 'localhost',
-  // port: 6379,
-  // ttl: <redis session TTL in seconds>,
-  // db: 0,
-  // pass: <redis auth password>,
-  // prefix: 'sess:',
-
+  host: 'mycachecluster.nccvwa.0001.euc1.cache.amazonaws.com',
+  port: 6379,
+  ttl: 10,
+  db: 0,
+  //pass: <redis auth password>,
+  prefix: 'sess:',
 
   /***************************************************************************
   *                                                                          *
