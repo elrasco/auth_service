@@ -12,7 +12,7 @@ var
 
     user: {
       tokenSecret: 'let_s_get_the_fuck_in',
-      expiresIn: '1d' // 1 day
+      expiresIn: '30 days' // 30 day
     },
     service: {
       tokenSecret: 'lasciate_ogni_speranza_voi_che_entrate',
@@ -53,5 +53,5 @@ module.exports = function(service_or_user){
       );
     }
 
-  }
-}
+  };
+};
