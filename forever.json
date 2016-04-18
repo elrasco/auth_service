@@ -1,0 +1,6 @@
+{
+    "uid": "smallfish_auth",
+    "append": true,
+    "watch": false,
+    "script": "app.js"
+}
