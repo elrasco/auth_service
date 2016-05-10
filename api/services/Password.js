@@ -8,11 +8,12 @@ module.exports.hash = function(password) {
 		    	if (err) {
 		      		console.error(err);
 		      		reject(err);
-		      		throw new Error("error hashing user password!!")
+		      		throw new Error("error hashing user password!!");
 		    	} else {
+					
 		      		resolve(hash);
 		    	}
 		  	});
 		});	
-	})
-}
+	});
+};

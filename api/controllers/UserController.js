@@ -20,26 +20,43 @@ module.exports = {
 		}, function(e) {
 
 			res.send(e);
-		})
+		});
 	}, 
 
 	resetPassword: function(req, res) {
-		if ( (req.body.email||'').trim() == '' || (req.body.password||'').trim() == '' ) {
+		
+		if((req.body.email || '').trim() === '' && (req.body.id || '') === ''){
 			res.badRequest();
-		} else {
+		}
+		else if((req.body.password || '').trim() === ''){
+			res.badRequest();
+		}
+		else {
+			
+			var options = {};
+			if((req.body.email || '').trim() !== ''){
+				Object.assign(options, {where: {email: req.body.email}});
+			}
+			else if((req.body.id || '') !== ''){
+				Object.assign(options, {where: {id: req.body.id}});
+			}
+			console.log(options);
 			Password.hash(req.body.password)
-			.then(function(hash) {
-				User.update({
+			.then(
+				function(hash) {
+				console.log('HASH: '+hash);
+				User
+				.update({
 					password: hash
-				}, {
-					where: {email: req.body.email}
-				}).then(function(result) {
-					res.send({updated: result[0]})
+				}, options)
+				.then(function(result) {
+					res.send({updated: result[0]});
 				}, function(error) {
+					console.log(error);
 					res.serverError({error});
-				})
+				});
 			});
-		};
+		}
 		
 	},
 	
@@ -91,8 +108,8 @@ module.exports = {
 			res.send(result);
 		}).catch(function(err) {
 			//rollback
-			console.error('err')
-			console.error(err)
+			console.error('err');
+			console.error(err);
 			res.send({error: err});
 		});
 	}
