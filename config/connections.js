@@ -98,10 +98,7 @@ module.exports.connections = {
         options: {
             dialect: 'mysql',
             host: 'aws-smallfish-stage.cuoyjpk3vtj2.eu-central-1.rds.amazonaws.com',
-            logging: false,
-            define: {
-                hooks: hooks
-            }
+            logging: false
         }
     }
 
