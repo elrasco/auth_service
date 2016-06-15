@@ -21,68 +21,88 @@
 
 module.exports.connections = {
 
-  /***************************************************************************
-  *                                                                          *
-  * Local disk storage for DEVELOPMENT ONLY                                  *
-  *                                                                          *
-  * Installed by default.                                                    *
-  *                                                                          *
-  ***************************************************************************/
-  localDiskDb: {
-    adapter: 'sails-disk'
-  },
-
-  /***************************************************************************
-  *                                                                          *
-  * MySQL is the world's most popular relational database.                   *
-  * http://en.wikipedia.org/wiki/MySQL                                       *
-  *                                                                          *
-  * Run: npm install sails-mysql                                             *
-  *                                                                          *
-  ***************************************************************************/
-  /*
-  smallfish_auth: {
-    adapter: 'sails-mysql',
-    host: 'smallfish-test.cj2ft7z1f8mt.us-west-2.rds.amazonaws.com',
-    user: 'smallfish_test',
-    password: 'smallfish_test01!',
-    database: 'smallfish_auth',
-    connectTimeout: 10000,
-    connectionLimit: 20
-  },
-  */
-  smallfish_auth_test: {
-    user: 'smallfish_test',
-    password: 'smallfish_test01!',
-    database: 'smallfish_auth',
-    dialect: 'mysql',
-    pool: {
-      max: 5,
-      min: 1,
-      idle: 10000
+    /***************************************************************************
+     *                                                                          *
+     * Local disk storage for DEVELOPMENT ONLY                                  *
+     *                                                                          *
+     * Installed by default.                                                    *
+     *                                                                          *
+     ***************************************************************************/
+    localDiskDb: {
+        adapter: 'sails-disk'
     },
-    options: {
-      dialect: 'mysql',
+
+    /***************************************************************************
+     *                                                                          *
+     * MySQL is the world's most popular relational database.                   *
+     * http://en.wikipedia.org/wiki/MySQL                                       *
+     *                                                                          *
+     * Run: npm install sails-mysql                                             *
+     *                                                                          *
+     ***************************************************************************/
+    /*
+    smallfish_auth: {
+      adapter: 'sails-mysql',
       host: 'smallfish-test.cj2ft7z1f8mt.us-west-2.rds.amazonaws.com',
-      logging: true
-    }
-  },
-
-  smallfish_auth: {
-    user: 'smallfish_prod',
-    password: 'smallfish_prod01!',
-    database: 'smallfish_auth',
-    dialect: 'mysql',
-    pool: {
-      max: 15,
-      min: 5,
-      idle: 10000
+      user: 'smallfish_test',
+      password: 'smallfish_test01!',
+      database: 'smallfish_auth',
+      connectTimeout: 10000,
+      connectionLimit: 20
     },
-    options: {
-      dialect: 'mysql',
-      host: 'asw-smallfish-prod.cuoyjpk3vtj2.eu-central-1.rds.amazonaws.com',
-      logging: true
+    */
+    smallfish_auth_test: {
+        user: 'smallfish_test',
+        password: 'smallfish_test01!',
+        database: 'smallfish_auth',
+        dialect: 'mysql',
+        pool: {
+            max: 5,
+            min: 1,
+            idle: 10000
+        },
+        options: {
+            dialect: 'mysql',
+            host: 'smallfish-test.cj2ft7z1f8mt.us-west-2.rds.amazonaws.com',
+            logging: true
+        }
+    },
+
+    smallfish_auth: {
+        user: 'smallfish_prod',
+        password: 'smallfish_prod01!',
+        database: 'smallfish_auth',
+        dialect: 'mysql',
+        pool: {
+            max: 15,
+            min: 5,
+            idle: 10000
+        },
+        options: {
+            dialect: 'mysql',
+            host: 'asw-smallfish-prod.cuoyjpk3vtj2.eu-central-1.rds.amazonaws.com',
+            logging: true
+        }
+    },
+
+    smallfish_auth_stage: {
+        user: 'smallfish_stage',
+        password: 'smallfish_stage01!',
+        database: 'smallfish_auth',
+        dialect: 'mysql',
+        pool: {
+            max: 15,
+            min: 5,
+            idle: 10000
+        },
+        options: {
+            dialect: 'mysql',
+            host: 'aws-smallfish-stage.cuoyjpk3vtj2.eu-central-1.rds.amazonaws.com',
+            logging: false,
+            define: {
+                hooks: hooks
+            }
+        }
     }
-  }
 
 };

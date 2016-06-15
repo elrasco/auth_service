@@ -9,7 +9,14 @@
  * any private information to this file!
  *
  */
-const cluster_private_ip = process.env.CLUSTER_PRIVATE_IP;
+ const SF_UPLOAD_HOST_IP = process.env.SF_UPLOAD_HOST_IP;
+ const SF_AUTH_HOST_IP = process.env.SF_AUTH_HOST_IP;
+ const SF_MAIL_HOST_IP = process.env.SF_MAIL_HOST_IP;
+ const SF_API_HOST_IP = process.env.SF_API_HOST_IP;
+ const MP_BE_HOST_IP = process.env.MP_BE_HOST_IP;
+ const MP_ACCOUNTING_HOST_IP = process.env.MP_ACCOUNTING_HOST_IP;
+ const MP_API_HOST_IP = process.env.MP_API_HOST_IP;
+ const MP_SOCKET_HOST_IP = process.env.MP_SOCKET_HOST_IP;
 
 module.exports = {
 
@@ -19,7 +26,7 @@ module.exports = {
      ***************************************************************************/
 
     models: {
-        connection: 'smallfish_auth',
+        connection: 'smallfish_auth_stage',
         migrate: 'safe'
     },
 
