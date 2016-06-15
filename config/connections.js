@@ -86,8 +86,8 @@ module.exports.connections = {
     },
 
     smallfish_auth_stage: {
-        user: 'smallfish_stage',
-        password: 'smallfish_stage01!',
+        user: 'smallfish_prod',
+        password: 'smallfish_prod01!',
         database: 'smallfish_auth',
         dialect: 'mysql',
         pool: {
@@ -97,7 +97,7 @@ module.exports.connections = {
         },
         options: {
             dialect: 'mysql',
-            host: 'aws-smallfish-stage.cuoyjpk3vtj2.eu-central-1.rds.amazonaws.com',
+            host: 'aws-smallfish-stage.caml2abvkqlr.eu-west-1.rds.amazonaws.com',
             logging: false
         }
     }
