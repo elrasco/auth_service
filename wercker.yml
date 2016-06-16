@@ -1,9 +1,11 @@
 box:
   id: shyal/node-docker-sails
   tag: 1
+
 build:
   steps:
   - npm-install
+
 push-to-hub-stage:
   steps:
     - script:
