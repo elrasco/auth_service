@@ -1,0 +1,25 @@
+box:
+  id: shyal/node-docker-sails
+  tag: 1
+build:
+  steps:
+  - npm-install
+push-to-hub-stage:
+  steps:
+    - script:
+        name: add aws keys
+        code: |
+          'mkdir ~/.aws
+          echo '[default]\naws_access_key_id=AKIAJFKJMCZC3VNDMSIA\naws_secret_access_key=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\nregion=eu-west-1\n' >> ~/.aws/config
+    - script:
+        name: login with docker
+        code: $(aws ecr get-login --region eu-west-1)
+    - script:
+        name: docker build
+        code: docker build -t smallfish/auth .
+    - script:
+        name: docker tag
+        code: docker tag smallfish/auth:stage 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:stage
+    - script:
+        name: docker push
+        code: docker push 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:stage
