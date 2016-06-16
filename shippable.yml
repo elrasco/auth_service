@@ -1,6 +1,13 @@
 # Language setting
 language: node_js
 
+env:
+  global:
+    REGISTRY_ACCESS_KEY="DvRKLV4Xk3jpB4DgsP/p9W3iyt8NoMM4OxPtfexN"
+    REGISTRY_SECRET_KEY="AKIAJFKJMCZC3VNDMSIA"
+    REGISTRY_REGION="eu-west-1"
+
+
 build:
   ci:
     - echo 'CI is running'
@@ -11,17 +18,8 @@ build:
       - docker push 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:$BRANCH.$BUILD_NUMBER
 
 integrations:
-  deploy:
-    # Private Image (ECR)
-    - integrationName: "AWS"
-      type: aws
-      target: eb_docker
-      application_name: "smallfish/auth"
-      env_name: "ecr-env"
-      region: "eu-west-1"
-      image_name: "315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth"
-      image_tag: "$BRANCH.$BUILD_NUMBER"
-
   hub:
     - integrationName: "AWS ECR"
       type: ecr
+
+
