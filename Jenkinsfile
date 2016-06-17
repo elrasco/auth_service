@@ -3,8 +3,8 @@ node() {
 
   stage 'Print evs'
   sh '''
-      echo ${env.BRANCH_NAME}
-      echo ${env.GIT_COMMIT}
+      echo "$BRANCH_NAME"
+      echo "$GIT_COMMIT"
      '''
 
   // stage 'Build Docker Image'
