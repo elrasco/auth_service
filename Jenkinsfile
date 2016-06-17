@@ -2,6 +2,7 @@
 
 node() {
 
+  stage 'test'
   sh('git rev-parse HEAD > GIT_COMMIT')
   String git_commit=readFile('GIT_COMMIT')
   
@@ -9,7 +10,6 @@ node() {
   sh('git rev-parse --abbrev-ref HEAD > GIT_BRANCH')
   String git_branch=readFile('GIT_BRANCH')
 
-  stage 'test'
   sh '''   
     echo "${git_branch}"
     echo "${git_commit}"
