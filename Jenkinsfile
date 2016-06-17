@@ -4,14 +4,14 @@ node() {
 
   stage 'test'
   sh('git rev-parse HEAD > GIT_COMMIT')
-  def git_commit=readFile('GIT_COMMIT')
+  env.GIT_COMMIT=readFile('GIT_COMMIT')
   
   
   sh('git rev-parse --abbrev-ref HEAD > GIT_BRANCH')
-  def git_branch=readFile('GIT_BRANCH')
+  env.GIT_BRANCH=readFile('GIT_BRANCH')
 
-  sh "echo ${git_branch}"
-  sh "echo ${git_commit}"
+  sh "echo $GIT_BRANCH"
+  sh "echo $GIT_COMMIT"
 
   // stage 'Build Docker Image'
   // sh 'docker build --no-cache -t smallfish/auth .'
