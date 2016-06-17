@@ -11,8 +11,8 @@ node() {
 
   stage 'test'
   sh '''   
-    echo ${git_branch}
-    echo ${git_commit}
+    echo "${git_branch}"
+    echo "${git_commit}"
     '''
 
   // stage 'Build Docker Image'
