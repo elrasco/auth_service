@@ -12,4 +12,5 @@ node {
   //   docker push 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:test
   //   '''
 
+
 }
