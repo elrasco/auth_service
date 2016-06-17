@@ -1,4 +1,4 @@
-node('Smallfish Auth') {
+node() {
 
   printenv
 
