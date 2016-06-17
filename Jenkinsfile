@@ -1,12 +1,8 @@
 node() {
 
-
-  stage 'Print evs'
-  sh '''
-      echo "$BRANCH_NAME"
-      echo "$GIT_COMMIT"
-     '''
-
+  stage 'ENV'
+  sh 'echo $BRANCH_NAME'
+  sh 'echo $GIT_COMMIT'
   // stage 'Build Docker Image'
   // sh 'docker build --no-cache -t smallfish/auth .'
 
