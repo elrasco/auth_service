@@ -1,28 +1,22 @@
 node() {
-
-  sh('git rev-parse HEAD > GIT_COMMIT')
-  def git_commit=readFile('GIT_COMMIT')
-
   
-  sh('git rev-parse --abbrev-ref HEAD > GIT_BRANCH')
-  def git_branch=readFile('GIT_BRANCH')
-  // short SHA, possibly better for chat notifications, etc.
-
-
-
   stage 'ENV'
-
-  sh "echo ${git_commit}"
-  sh "echo ${git_branch}"
-  // stage 'Build Docker Image'
-  // sh 'docker build --no-cache -t smallfish/auth .'
-
-  // stage 'Push Docker Image to ECR'
-  // sh '''   
-  //   docker tag smallfish/auth:latest 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:test
+    sh('git rev-parse HEAD > GIT_COMMIT')
+    def git_commit=readFile('GIT_COMMIT')
+  
     
-  //   docker push 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:test
-  //   '''
+    sh('git rev-parse --abbrev-ref HEAD > GIT_BRANCH')
+    def git_branch=readFile('GIT_BRANCH')
+
+  stage 'Build Docker Image'
+  sh 'docker build --no-cache -t smallfish/auth .'
+
+  stage 'Push Docker Image to ECR'
+  sh '''   
+    docker tag smallfish/auth:latest 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:${git_commit}:${git_branch}
+    
+    docker push 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:${git_commit}:${git_branch}
+    '''
 
     
 }
