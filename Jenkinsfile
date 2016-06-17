@@ -1,12 +1,14 @@
-sh('git rev-parse HEAD > GIT_COMMIT')
-def git_commit=readFile('GIT_COMMIT')
 
-
-sh('git rev-parse --abbrev-ref HEAD > GIT_BRANCH')
-def git_branch=readFile('GIT_BRANCH')
 
 node() {
 
+  sh('git rev-parse HEAD > GIT_COMMIT')
+  def git_commit=readFile('GIT_COMMIT')
+  
+  
+  sh('git rev-parse --abbrev-ref HEAD > GIT_BRANCH')
+  def git_branch=readFile('GIT_BRANCH')
+  
   stage 'Build Docker Image'
   sh 'docker build --no-cache -t smallfish/auth .'
 
