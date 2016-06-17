@@ -1,9 +1,11 @@
-node {
-  stage 'Checkout Git 5'
-  git branch: 'development', credentialsId: 'bitbucket', url: 'https://puemos:BBBbeat9@bitbucket.org/_smallfish/smallfish_auth.git'
-  
+node('Smallfish Auth') {
+
+  printenv
+
+  echo ${env.BRANCH_NAME}
+  echo ${env.GIT_COMMIT}
   // stage 'Build Docker Image'
-  // sh 'docker build -t smallfish/auth .'
+  // sh 'docker build --no-cache -t smallfish/auth .'
 
   // stage 'Push Docker Image to ECR'
   // sh '''   
