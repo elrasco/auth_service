@@ -1,5 +1,5 @@
 node {
-  stage 'Checkout Git 4'
+  stage 'Checkout Git 5'
   git branch: 'development', credentialsId: 'bitbucket', url: 'https://puemos:BBBbeat9@bitbucket.org/_smallfish/smallfish_auth.git'
   
   // stage 'Build Docker Image'
