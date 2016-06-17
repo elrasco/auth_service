@@ -1,7 +1,5 @@
 node() {
 
-  printenv
-
   echo ${env.BRANCH_NAME}
   echo ${env.GIT_COMMIT}
   // stage 'Build Docker Image'
