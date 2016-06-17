@@ -10,8 +10,8 @@ node() {
   sh('git rev-parse --abbrev-ref HEAD > GIT_BRANCH')
   def git_branch=readFile('GIT_BRANCH')
 
-  sh "echo ${git_branch} / &&
-      echo ${git_commit}"
+  sh "echo ${git_branch}"
+  sh "echo ${git_commit}"
 
   // stage 'Build Docker Image'
   // sh 'docker build --no-cache -t smallfish/auth .'
