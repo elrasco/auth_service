@@ -11,8 +11,6 @@ node() {
   	// ENVS
     // sh('git rev-parse HEAD > GIT_COMMIT')
     // def git_commit=readFile('GIT_COMMIT')
-    sh('git rev-parse --abbrev-ref HEAD > GIT_BRANCH')
-    def git_branch=readFile('GIT_BRANCH')
 
     // PUSH
     sh "docker tag smallfish/auth:latest 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:${git_branch}"
