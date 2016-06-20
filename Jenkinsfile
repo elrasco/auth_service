@@ -11,9 +11,7 @@ node() {
     def git_branch=readFile('GIT_BRANCH')
 
     // PUSH
-    sh "docker tag smallfish/auth:latest 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:latest-${git_branch}"
-    sh "docker push 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:latest-${git_branch}"
+    sh "docker tag smallfish/auth:latest 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:${git_branch}"
+    sh "docker push 315671387076.dkr.ecr.eu-west-1.amazonaws.com/smallfish/auth:${git_branch}"
 
-
-    
 }
