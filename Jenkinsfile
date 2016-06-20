@@ -1,6 +1,4 @@
 node() {
-  stage 'ECR login'
-    sh '$(sudo aws ecr get-login --region eu-west-1)'
   stage 'Build Docker Image'
     sh 'docker build --no-cache -t smallfish/auth .'
 
