@@ -4,7 +4,6 @@ node() {
     def git_branch=readFile('GIT_BRANCH')
     git branch: git_branch, credentialsId: 'bitbucket', url: 'git@bitbucket.org:_smallfish/smallfish_auth.git'
 
-    
   stage 'Build Docker Image'
     sh 'docker build --no-cache -t smallfish/auth .'
 
