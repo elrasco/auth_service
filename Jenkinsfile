@@ -1,6 +1,6 @@
 node() {
-  // stage 'Pull'
-  //   git branch: 'development', credentialsId: '9a72a0ba-dbdb-4302-962c-3cad6692589a', url: 'git@bitbucket.org:_smallfish/smallfish_auth.git'
+  stage 'ECR login'
+    sh '$(aws ecr get-login --region eu-west-1)'
   stage 'Build Docker Image'
     sh 'docker build --no-cache -t smallfish/auth .'
 
