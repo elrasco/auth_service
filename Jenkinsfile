@@ -1,6 +1,6 @@
 node() {
-  stage 'Pull'
-    git branch: 'development', credentialsId: '9a72a0ba-dbdb-4302-962c-3cad6692589a', url: 'git@bitbucket.org:_smallfish/smallfish_auth.git'
+  // stage 'Pull'
+  //   git branch: 'development', credentialsId: '9a72a0ba-dbdb-4302-962c-3cad6692589a', url: 'git@bitbucket.org:_smallfish/smallfish_auth.git'
   stage 'Build Docker Image'
     sh 'docker build --no-cache -t smallfish/auth .'
 
