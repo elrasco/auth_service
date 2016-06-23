@@ -29,7 +29,7 @@ module.exports.policies = {
   '*': true,
 
   'AuthController': {
-    'issue': 'isPlatform'
+    'issue': ['isAuthenticated', 'isPlatform']
   },
 
   'UserController': {
