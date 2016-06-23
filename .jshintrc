@@ -1,0 +1,12 @@
+{
+  "node": true,
+  "esnext": true,
+  "maxerr": 10000,
+  "globals": {
+    "sails": true,
+    "Promise": true,
+    "LogActivity": true,
+    "sequelize": true, 
+    "Redlock": true
+  }
+}

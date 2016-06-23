@@ -17,29 +17,24 @@ var
     service: {
       tokenSecret: 'lasciate_ogni_speranza_voi_che_entrate',
       expiresIn: '3650 days' // 10 years
+    },
+    chat: {
+      tokenSecret: 'all_work_and_no_play_makes_Jack_a_dull_boy',
+      expiresIn: '1 days'
     }
 
   };
 
-  tokenSecret = {
-    service: 'lasciate_ogni_speranza_voi_che_entrate',
-    user: 'let_s_get_the_fuck_in'
-  };
 
-
-module.exports = function(service_or_user){
-  
-  if(typeof service_or_user === 'undefined'){
-    service_or_user = 'user';
-  }
+module.exports = function(token_type = 'user') {
 
   return {
     issue: function(payload) {
       return jwt.sign(
         payload,
-        jwt_config[service_or_user].tokenSecret, // Token Secret that we sign it with
+        jwt_config[token_type].tokenSecret, // Token Secret that we sign it with
         {
-          expiresIn: jwt_config[service_or_user].expiresIn // Token Expire time in seconds
+          expiresIn: jwt_config[token_type].expiresIn // Token Expire time in seconds
         }
       );
     },
@@ -47,7 +42,7 @@ module.exports = function(service_or_user){
     verify: function(token, callback) {
       return jwt.verify(
         token, // The token to be verified
-        jwt_config[service_or_user].tokenSecret, // Same token we used to sign
+        jwt_config[token_type].tokenSecret, // Same token we used to sign
         {}, // No Option, for more see https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
         callback //Pass errors or decoded token to callback
       );

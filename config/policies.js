@@ -25,13 +25,12 @@ module.exports.policies = {
   * access)                                                                  *
   *                                                                          *
   ***************************************************************************/
-
-  
   
   '*': true,
 
-  //'login': true,
-
+  'AuthController': {
+    'issue': 'isPlatform'
+  },
 
   'UserController': {
     '*':              ['isAuthenticated'],
