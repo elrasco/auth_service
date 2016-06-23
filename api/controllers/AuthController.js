@@ -109,7 +109,8 @@ module.exports = {
     try {
       const token = jwToken(req.params.type).issue(req.body);
       return res.send({
-        token: jwToken(req.params.type).issue(req.body)
+        token: jwToken(req.params.type).issue(req.body),
+        payload: req.body
       });
     } catch (err) {
       return res.serverError(err);
