@@ -4,7 +4,7 @@ ADD . /code
 WORKDIR /code
 
 
-EXPOSE 1339
+EXPOSE 1343
 
 RUN npm install
 CMD node app.js
