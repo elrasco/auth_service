@@ -9,6 +9,7 @@
  * any private information to this file!
  *
  */
+
  const SF_AUTH_HOST_IP      = 'internal-stage-smallfish-auth.lb.smallfish.com';
  const SF_MAIL_HOST_IP      = 'internal-stage-smallfish-mail.lb.smallfish.com';
  const SF_API_HOST_IP       = 'internal-stage-smallfish-api.lb.smallfish.com';
@@ -30,8 +31,5 @@ module.exports = {
         migrate: 'safe'
     },
 
-    port: 1339,
-
-
-
+    port: 1339
 };
