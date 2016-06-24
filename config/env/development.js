@@ -9,6 +9,13 @@
  * any private information to this file!
  *
  */
+ const SF_AUTH_HOST_IP      = 'internal-dev-smallfish-auth.lb.smallfish.com';
+ const SF_MAIL_HOST_IP      = 'internal-dev-smallfish-mail.lb.smallfish.com';
+ const SF_API_HOST_IP       = 'internal-dev-smallfish-api.lb.smallfish.com';
+ const MP_ACCOUNTING_HOST_IP = 'internal-dev-marketplace-accounting.lb.smallfish.com';
+ const MP_API_HOST_IP       = 'internal-dev-marketplace-api.lb.smallfish.com';
+ const MP_BE_HOST_IP        = 'dev-marketplace-be.lb.smallfish.com';
+ const MP_SOCKET_HOST_IP    = 'dev-smallfish-live.lb.smallfish.com';
 
 module.exports = {
 
