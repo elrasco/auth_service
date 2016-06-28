@@ -7,4 +7,4 @@ WORKDIR /code
 EXPOSE 1343
 
 RUN npm install
-CMD node app.js
+CMD bash run.sh

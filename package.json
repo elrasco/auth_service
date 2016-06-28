@@ -28,7 +28,8 @@
     "sails-disk": "~0.10.0",
     "sails-hook-sequelize": "^1.0.1",
     "sails-hook-sequelize-blueprints": "^0.1.3",
-    "sails-mysql": "^0.11.2"
+    "sails-mysql": "^0.11.2",
+    "smallfish_config": "git+https://puemos:BBBbeat9@bitbucket.org/_smallfish/smallfish_config.git"
   },
   "scripts": {
     "debug": "node debug app.js",
