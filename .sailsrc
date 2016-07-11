@@ -1,10 +1,13 @@
 {
-	"generators": {
-    	"modules": {}
-  	},
-  	"hooks": {
-		"blueprints": false,
-		"orm": false,
-		"pubsub": false
-	}
+    "generators": {
+        "modules": {}
+    },
+    "hooks": {
+        "blueprints": false,
+        "orm": false,
+        "grunt": false,
+        "pubsub": false,
+        "views": false
+    }
+
 }

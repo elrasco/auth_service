@@ -1,0 +1,25 @@
+{
+    "containerDefinitions": [
+        {
+            "memory": 256,
+            "portMappings": [
+                {
+                    "hostPort": 1343,
+                    "containerPort": 1343,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "mountPoints": [],
+            "name": "prod-smallfish-auth",
+            "environment": [
+                {
+                    "name": "NODE_ENV",
+                    "value": "production"
+                }
+            ],
+            "cpu": 50
+        }
+    ],
+    "family": "prod-smallfish-auth"
+}
