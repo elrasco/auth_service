@@ -1,7 +1,7 @@
 {
     "containerDefinitions": [
         {
-            "memory": 256,
+            "memory": 200,
             "portMappings": [
                 {
                     "hostPort": 1343,
