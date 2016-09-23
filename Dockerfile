@@ -1,4 +1,4 @@
-FROM shyal/node-sailsjs:latest
+FROM shyal/node-sailsjs:6.5.0-slim
 
 ADD . /code
 WORKDIR /code

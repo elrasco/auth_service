@@ -16,10 +16,12 @@ from git import Repo
 cli = Client(base_url='unix://var/run/docker.sock')
 ecs = boto3.client(
     'ecs',
+    region_name='eu-west-1',
     aws_access_key_id='AKIAJFKJMCZC3VNDMSIA',
     aws_secret_access_key='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')
 ecr = boto3.client(
     'ecr',
+    region_name='eu-west-1',
     aws_access_key_id='AKIAJFKJMCZC3VNDMSIA',
     aws_secret_access_key='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')
 
