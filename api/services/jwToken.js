@@ -14,6 +14,11 @@ var
       tokenSecret: 'let_s_get_the_fuck_in',
       expiresIn: '30 days' // 30 day
     },
+    guest: {
+      tokenSecret: 'ten_li_lehecanes',
+      expiresIn: '30 days', // 30 day,
+      extra: { guest: true }
+    },
     service: {
       tokenSecret: 'lasciate_ogni_speranza_voi_che_entrate',
       expiresIn: '3650 days' // 10 years
@@ -31,7 +36,7 @@ module.exports = function(token_type = 'user') {
   return {
     issue: function(payload) {
       return jwt.sign(
-        payload,
+        Object.assign({}, payload, jwt_config[token_type].extra),
         jwt_config[token_type].tokenSecret, // Token Secret that we sign it with
         {
           expiresIn: jwt_config[token_type].expiresIn // Token Expire time in seconds

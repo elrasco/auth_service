@@ -43,8 +43,8 @@ module.exports = {
 
       var type = !req.body.type ? 'service' : req.body.type;
 
-      var email_empty = !req.body.email || req.body.email == '';
-      var password_empty = !req.body.password || req.body.password == '';
+      var email_empty = !req.body.email || req.body.email === '';
+      var password_empty = !req.body.password || req.body.password === '';
 
       if (email_empty || password_empty) {
         res.status(400).send({
