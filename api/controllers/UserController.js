@@ -73,10 +73,10 @@ module.exports = {
 		return sequelize.transaction(function(t) {
 			//transaction type by default is DEFERRED
 			return User.findOne({
-				attributes: {exclude: ['updatedAt', 'createdAt', 'password']},
+				attributes: {exclude: ['password']},
 				include: [{
 	              model: User_roles, as: 'roles',
-	              attributes: {exclude: ['id']}
+	              attributes: {exclude: ['updatedAt', 'createdAt', 'user_id', 'id']}
 	            }],
 				where: {email: user.email},
 				transaction: t
