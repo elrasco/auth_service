@@ -11,7 +11,7 @@ module.exports = {
 		User.findAll({
 			attributes: {exclude: ['updatedAt', 'createdAt', 'password']},
 			include: [{
-              model: User_roles, as: 'roles', 
+              model: User_roles, as: 'roles',
               attributes: {exclude: ['updatedAt', 'createdAt', 'user_id', 'id']}
             }]
 		})
@@ -21,10 +21,10 @@ module.exports = {
 
 			res.send(e);
 		});
-	}, 
+	},
 
 	resetPassword: function(req, res) {
-		
+
 		if((req.body.email || '').trim() === '' && (req.body.id || '') === ''){
 			res.badRequest();
 		}
@@ -32,7 +32,7 @@ module.exports = {
 			res.badRequest();
 		}
 		else {
-			
+
 			var options = {};
 			if((req.body.email || '').trim() !== ''){
 				Object.assign(options, {where: {email: req.body.email}});
@@ -57,9 +57,9 @@ module.exports = {
 				});
 			});
 		}
-		
+
 	},
-	
+
 	/**
 	 * actually is a findOrCreate
 	 */
@@ -75,15 +75,15 @@ module.exports = {
 			return User.findOne({
 				attributes: {exclude: ['updatedAt', 'createdAt', 'password']},
 				include: [{
-	              model: User_roles, as: 'roles', 
-	              attributes: {exclude: ['updatedAt', 'createdAt', 'user_id', 'id']}
+	              model: User_roles, as: 'roles',
+	              attributes: {exclude: ['id']}
 	            }],
-				where: {email: user.email}, 
+				where: {email: user.email},
 				transaction: t
 			})
 			.then(function(found) {
 				if (!found) {
-					return User.create(user, 
+					return User.create(user,
 					{
 						transaction: t
 						,include: [User.associations.roles]
@@ -103,7 +103,7 @@ module.exports = {
 				}
 
 			});
-			
+
 		}).then(function(result) {
 			res.send(result);
 		}).catch(function(err) {
