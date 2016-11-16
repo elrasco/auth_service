@@ -34,7 +34,7 @@ module.exports.policies = {
 
   'UserController': {
     '*':              ['isAuthenticated'],
-    'find':           ['isAuthenticated', 'isReader', 'isSmallfish'],
+    'find':           ['isAuthenticated', 'isReader'],
     'findOne':        ['isAuthenticated', 'isReader'],
     'create':         ['isAuthenticated', 'isCreator'],
     'update':         ['isAuthenticated', 'isCreator'],

@@ -13,49 +13,48 @@ module.exports.bootstrap = function(cb) {
 
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  
+
   cb();
 
-  var http = require('http'), req = http.IncomingMessage.prototype;
+  var http = require('http'),
+    req = http.IncomingMessage.prototype;
 
-/**
- * Test if request is authenticated.
- *
- * @return {Boolean}
- * @api public
- */
-	req.isAuthenticated = function() {
+  /**
+   * Test if request is authenticated.
+   *
+   * @return {Boolean}
+   * @api public
+   */
+  req.isAuthenticated = function() {
 
-	  var token;
-
-	  if (this.headers && this.headers.authorization) {
-
-	    var parts = this.headers.authorization.split(' ');
-
-	    if (parts.length == 2) {
-
-	      var scheme = parts[0],
-	        credentials = parts[1];
-
-	      if (/^Bearer$/i.test(scheme)) {
-	        token = credentials;
-	      }
-
-	    } else {
-	      return false;
-	    }
-
-
-	  } else {
-	    return false;
-	  }
-
-	  try {
-			this.user = jwToken('service').verify(token);
-			return true;
-	  } catch (ex) {
-	  	return false;
-	  }
-	};
+    var token;
+    if (this.headers && this.headers.authorization) {
+      var parts = this.headers.authorization.split(' ');
+      if (parts.length == 2) {
+        var scheme = parts[0],
+          credentials = parts[1];
+        if (/^Bearer$/i.test(scheme)) {
+          token = credentials;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+    try {
+      this.user = jwToken('service')
+        .verify(token);
+      return true;
+    } catch (ex) {
+      try {
+        this.user = jwToken('user')
+          .verify(token);
+        return true;
+      } catch (ex) {
+        return false;
+      }
+    }
+  };
 
 };
