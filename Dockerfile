@@ -1,4 +1,4 @@
-FROM shyal/node-sailsjs:6.5.0-slim
+FROM shyal/docker-node-yarn
 
 ADD . /code
 WORKDIR /code
@@ -6,5 +6,5 @@ WORKDIR /code
 
 EXPOSE 1343
 
-RUN npm install
+RUN yarn install --no-lockfile
 CMD bash run.sh
