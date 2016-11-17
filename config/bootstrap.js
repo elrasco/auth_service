@@ -11,51 +11,53 @@
 
 module.exports.bootstrap = function(cb) {
 
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  
-  cb();
+    // It's very important to trigger this callback method when you are finished
+    // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
 
-  var http = require('http'), req = http.IncomingMessage.prototype;
+    cb();
 
-/**
+    var http = require('http'),
+        req = http.IncomingMessage.prototype;
+
+    /**
  * Test if request is authenticated.
  *
  * @return {Boolean}
  * @api public
  */
-	req.isAuthenticated = function() {
+    req.isAuthenticated = function() {
 
-	  var token;
+        var token;
 
-	  if (this.headers && this.headers.authorization) {
+        if (this.headers && this.headers.authorization) {
 
-	    var parts = this.headers.authorization.split(' ');
+            var parts = this.headers.authorization.split(' ');
 
-	    if (parts.length == 2) {
+            if (parts.length == 2) {
 
-	      var scheme = parts[0],
-	        credentials = parts[1];
+                var scheme = parts[0],
+                    credentials = parts[1];
+                if (/^Bearer$/i.test(scheme)) {
+                    token = credentials;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
 
-	      if (/^Bearer$/i.test(scheme)) {
-	        token = credentials;
-	      }
-
-	    } else {
-	      return false;
-	    }
-
-
-	  } else {
-	    return false;
-	  }
-
-	  try {
-			this.user = jwToken('service').verify(token);
-			return true;
-	  } catch (ex) {
-	  	return false;
-	  }
-	};
+        try {
+            this.user = jwToken('service').verify(token);
+            return true;
+        } catch (ex) {
+          console.log('in the catch ');
+          console.log(jwToken('service').decode(token));
+          throw {
+            error: ex.name,
+            decoded: jwToken('service').decode(token)
+          }
+        }
+    };
 
 };

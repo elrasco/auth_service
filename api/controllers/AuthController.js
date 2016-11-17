@@ -27,9 +27,14 @@ module.exports = {
   },
 
   isAuthenticated: function(req, res) {
-    res.json({
-      auth: req.isAuthenticated()
-    });
+    try {
+      res.json({
+        auth: req.isAuthenticated()
+      });
+    } catch (e) {
+      res.json({e});
+    }
+
   },
 
   login: function(req, res) {
