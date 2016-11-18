@@ -32,9 +32,11 @@ module.exports = {
         auth: req.isAuthenticated()
       });
     } catch (e) {
-      res.json({e});
+      res.json({
+        auth: false,
+        error: e
+      });
     }
-
   },
 
   login: function(req, res) {
@@ -114,11 +116,40 @@ module.exports = {
     try {
       const token = jwToken(req.params.type).issue(req.body);
       return res.send({
-        token: jwToken(req.params.type).issue(req.body),
+        token: token,
         payload: req.body
       });
     } catch (err) {
       return res.serverError(err);
+    }
+  },
+
+  issueForUser: function(req, res) {
+    try {
+      User.findOne({
+        where: {
+          email: req.body.email,
+          enable: true
+        }
+      }).then( user => {
+        if (user) {
+          res.send({
+            token: jwToken(req.params.type).issue(req.body),
+            payload: req.body
+          });
+        } else {
+          throw 'no user found, maybe disabled'
+        }
+      }).catch( error => {
+        res.status(401).send({
+          code: 401,
+          message: 'Invalid renewal',
+          error: error
+        });
+      });
+
+    } catch (err) {
+      res.serverError(err);
     }
   }
 

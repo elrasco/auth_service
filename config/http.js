@@ -8,6 +8,7 @@
  * For more information on configuration, check out:
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.http.html
  */
+let moment = require('moment');
 
 module.exports.http = {
 
@@ -55,10 +56,14 @@ module.exports.http = {
          ****************************************************************************/
 
         myRequestLogger: function(req, res, next) {
-            console.log("Requested :: ", req.method, req.url);
+            const remoteaddress = req.connection.remoteAddress || '';
+            const xforwarded = req.headers['x-forwarded-for'] || '';
+            const ts = moment().format('YYYYMMDD.HHMMssSSS');
+            const useragent = req.headers['user-agent'] || '';
+
+            sails.log.debug('REQUEST'.red, `| ${ts} | ${req.method} | ${req.url} | ${remoteaddress} | ${xforwarded} | ${useragent}`);
             return next();
         }
-
 
         /***************************************************************************
          *                                                                          *

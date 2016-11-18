@@ -32,7 +32,8 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'POST /auth/issue/:type': 'AuthController.issue'
+  'POST /auth/issue/:type': 'AuthController.issue',
+  'POST /auth/issueforuser/:type': 'AuthController.issueForUser'
 
   /***************************************************************************
   *                                                                          *

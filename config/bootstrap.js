@@ -51,12 +51,15 @@ module.exports.bootstrap = function(cb) {
             this.user = jwToken('service').verify(token);
             return true;
         } catch (ex) {
-          console.log('in the catch ');
-          console.log(jwToken('service').decode(token));
-          throw {
-            error: ex.name,
-            decoded: jwToken('service').decode(token)
-          }
+            let error = {
+                error: ex.name,
+                message: ex.message
+            }
+            try {
+                Object.assign(error, {decoded: jwToken('service').decode(token)})
+            } catch (e) {}
+
+            throw error;
         }
     };
 

@@ -12,7 +12,8 @@ var
 
     user: {
       tokenSecret: 'let_s_get_the_fuck_in',
-      expiresIn: '30 days' // 30 day
+      //expiresIn: '30 days' // 30 day
+      expiresIn: '1 day' //
     },
     guest: {
       tokenSecret: 'ten_li_lehecanes',
@@ -42,6 +43,10 @@ module.exports = function(token_type = 'user') {
           expiresIn: jwt_config[token_type].expiresIn // Token Expire time in seconds
         }
       );
+    },
+
+    decode: function(token) {
+      return jwt.decode(token);
     },
 
     verify: function(token, callback) {
