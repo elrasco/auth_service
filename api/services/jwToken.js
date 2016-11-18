@@ -13,7 +13,7 @@ var
     user: {
       tokenSecret: 'let_s_get_the_fuck_in',
       //expiresIn: '30 days' // 30 day
-      expiresIn: '1 day' //
+      expiresIn: '30 minutes' //
     },
     guest: {
       tokenSecret: 'ten_li_lehecanes',
