@@ -15,6 +15,11 @@ var
       //expiresIn: '30 days' // 30 day
       expiresIn: '1h' //
     },
+    admin: {
+      tokenSecret: 'let_s_get_the_fuck_in',
+      //expiresIn: '30 days' // 30 day
+      expiresIn: '1 day' //
+    },
     guest: {
       tokenSecret: 'ten_li_lehecanes',
       expiresIn: '30 days', // 30 day,

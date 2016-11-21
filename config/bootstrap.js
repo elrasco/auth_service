@@ -11,56 +11,58 @@
 
 module.exports.bootstrap = function(cb) {
 
-    // It's very important to trigger this callback method when you are finished
-    // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+  // It's very important to trigger this callback method when you are finished
+  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
 
-    cb();
+  cb();
 
-    var http = require('http'),
-        req = http.IncomingMessage.prototype;
+  const http = require('http');
+  const req = http.IncomingMessage.prototype;
 
-    /**
- * Test if request is authenticated.
- *
- * @return {Boolean}
- * @api public
- */
-    req.isAuthenticated = function() {
-
-        var token;
-
-        if (this.headers && this.headers.authorization) {
-
-            var parts = this.headers.authorization.split(' ');
-
-            if (parts.length == 2) {
-
-                var scheme = parts[0],
-                    credentials = parts[1];
-                if (/^Bearer$/i.test(scheme)) {
-                    token = credentials;
-                }
-            } else {
-                return false;
-            }
-        } else {
-            return false;
+  /**
+   * Test if request is authenticated.
+   *
+   * @return {Boolean}
+   * @api public
+   */
+  req.isAuthenticated = function() {
+    let token;
+    if (this.headers && this.headers.authorization) {
+      let parts = this.headers.authorization.split(' ');
+      if (parts.length == 2) {
+        let scheme = parts[0];
+        let credentials = parts[1];
+        if (/^Bearer$/i.test(scheme)) {
+          token = credentials;
         }
-
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+    // Now i have the jwt token
+    try {
+      //  first try as a service
+      this.user = jwToken('service').verify(token);
+      return true;
+    } catch (ex) {
+      try {
+        //  second try as a user
+        this.user = jwToken('admin').verify(token);
+        return true;
+      } catch (ex) {
+        // create a nice error
+        let error = { error: ex.name, message: ex.message }
         try {
-            this.user = jwToken('service').verify(token);
-            return true;
-        } catch (ex) {
-            let error = {
-                error: ex.name,
-                message: ex.message
-            }
-            try {
-                Object.assign(error, {decoded: jwToken('service').decode(token)})
-            } catch (e) {}
+          Object.assign(error, {
+            decoded: jwToken('service').decode(token)
+          })
+        } catch (e) {}
 
-            throw error;
-        }
-    };
+        throw error;
+      }
+    }
+  };
 
 };
