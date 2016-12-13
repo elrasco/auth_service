@@ -56,8 +56,6 @@ module.exports = {
         hooks: {
             beforeCreate: function(user, options, cb) {
                 user.firstPassword = user.password;
-                console.log('allo sta passwword ', user.firstPassword)
-                console.log('allo sta passwword ', user.password)
                 Password.hash(user.password).then(function(hash) {
                     user.password = hash;
                     cb(null, user);
