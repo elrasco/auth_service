@@ -18,7 +18,7 @@ module.exports = {
             type: Sequelize.STRING,
             protected: true,
             get: function() {
-              return '';
+              return null;
             }
         },
         firstPassword: Sequelize.STRING,
