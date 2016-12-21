@@ -16,7 +16,10 @@ module.exports = {
         email: Sequelize.STRING,
         password: {
             type: Sequelize.STRING,
-            protected: true
+            protected: true,
+            get: function() {
+              return '';
+            }
         },
         firstPassword: Sequelize.STRING,
         country_code: Sequelize.STRING,
