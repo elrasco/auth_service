@@ -59,7 +59,6 @@ module.exports = {
           message: 'Missing datas'
         });
       } else {
-
         User.findOne({
           where: {
             email: req.body.email,

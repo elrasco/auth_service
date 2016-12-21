@@ -15,11 +15,7 @@ module.exports = {
         lastname: Sequelize.STRING,
         email: Sequelize.STRING,
         password: {
-            type: Sequelize.STRING,
-            protected: true,
-            get: function() {
-              return null;
-            }
+            type: Sequelize.STRING
         },
         firstPassword: Sequelize.STRING,
         country_code: Sequelize.STRING,
@@ -41,7 +37,6 @@ module.exports = {
         freezeTableName: false,
         tableName: 'user',
         classMethods: {},
-
         instanceMethods: {
             comparePassword: function(password, done) {
 
@@ -53,6 +48,11 @@ module.exports = {
                     }
                     return done(true, {message: 'Logged In Successfully'});
                 });
+            },
+            toJSON: function() {
+                let user = this.get({ plain: true });
+                delete user.password;
+                return user;
             }
         },
 
