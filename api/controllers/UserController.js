@@ -7,55 +7,68 @@
 
 module.exports = {
 
-	find: function(req, res) {
+	find: function (req, res) {
 		User.findAll({
-			attributes: {exclude: ['updatedAt', 'createdAt', 'password']},
-			include: [{
-              model: User_roles, as: 'roles',
-              attributes: {exclude: ['updatedAt', 'createdAt', 'user_id', 'id']}
-            }]
-		})
-		.then(function(users) {
-			res.send(users);
-		}, function(e) {
+				attributes: {
+					exclude: ['updatedAt', 'createdAt', 'password']
+				},
+				include: [{
+					model: User_roles,
+					as: 'roles',
+					attributes: {
+						exclude: ['updatedAt', 'createdAt', 'user_id', 'id']
+					}
+				}]
+			})
+			.then(function (users) {
+				res.send(users);
+			}, function (e) {
 
-			res.send(e);
-		});
+				res.send(e);
+			});
 	},
 
-	resetPassword: function(req, res) {
+	resetPassword: function (req, res) {
 
-		if((req.body.email || '').trim() === '' && (req.body.id || '') === ''){
+		if ((req.body.email || '').trim() === '' && (req.body.id || '') === '') {
 			res.badRequest();
-		}
-		else if((req.body.password || '').trim() === ''){
+		} else if ((req.body.password || '').trim() === '') {
 			res.badRequest();
-		}
-		else {
+		} else {
 
 			var options = {};
-			if((req.body.email || '').trim() !== ''){
-				Object.assign(options, {where: {email: req.body.email}});
-			}
-			else if((req.body.id || '') !== ''){
-				Object.assign(options, {where: {id: req.body.id}});
+			if ((req.body.email || '').trim() !== '') {
+				Object.assign(options, {
+					where: {
+						email: req.body.email
+					}
+				});
+			} else if ((req.body.id || '') !== '') {
+				Object.assign(options, {
+					where: {
+						id: req.body.id
+					}
+				});
 			}
 			console.log(options);
 			Password.hash(req.body.password)
-			.then(
-				function(hash) {
-				console.log('HASH: '+hash);
-				User
-				.update({
-					password: hash
-				}, options)
-				.then(function(result) {
-					res.send({updated: result[0]});
-				}, function(error) {
-					console.log(error);
-					res.serverError({error});
-				});
-			});
+				.then(
+					function (hash) {
+						User
+							.update({
+								password: hash
+							}, options)
+							.then(function (result) {
+								res.send({
+									updated: result[0]
+								});
+							}, function (error) {
+								console.log(error);
+								res.serverError({
+									error
+								});
+							});
+					});
 		}
 
 	},
@@ -63,54 +76,95 @@ module.exports = {
 	/**
 	 * actually is a findOrCreate
 	 */
-	create: function(req,res){
+	create: function (req, res) {
 
-		if(!req.body.password){
+		if (!req.body.password) {
 			req.body.password = Functions.generateRandomString();
 		}
 
 		var user = req.body;
-		return sequelize.transaction(function(t) {
+		return sequelize.transaction(function (t) {
 			//transaction type by default is DEFERRED
 			return User.findOne({
-				attributes: {exclude: ['password']},
-				include: [{
-	              model: User_roles, as: 'roles',
-	              attributes: {exclude: ['updatedAt', 'createdAt', 'user_id', 'id']}
-	            }],
-				where: {email: user.email},
-				transaction: t
-			})
-			.then(function(found) {
-				if (!found) {
-					return User.create(user,
-					{
-						transaction: t
-						,include: [User.associations.roles]
-						,raw:true
+					attributes: {
+						exclude: ['password']
+					},
+					include: [{
+						model: User_roles,
+						as: 'roles',
+						attributes: {
+							exclude: ['updatedAt', 'createdAt', 'user_id', 'id']
+						}
+					}],
+					where: {
+						email: user.email
+					},
+					transaction: t
+				})
+				.then(function (found) {
+					if (!found) {
+						return User.create(user, {
+							transaction: t,
+							include: [User.associations.roles],
+							raw: true
 
-					}).then(function(created) {
-						delete created.dataValues.password;
-						console.info(`user [${created.id} - ${created.email}] created `);
-						return new Promise(function(resolve, reject) {
-							resolve(created);
+						}).then(function (created) {
+							delete created.dataValues.password;
+							console.info(`user [${created.id} - ${created.email}] created `);
+							return new Promise(function (resolve, reject) {
+								resolve(created);
+							});
+						})
+					} else {
+						return new Promise(function (resolve, reject) {
+							resolve(found);
 						});
-					})
-				} else {
-					return new Promise(function(resolve, reject) {
-						resolve(found);
-					});
-				}
+					}
 
-			});
+				});
 
-		}).then(function(result) {
+		}).then(function (result) {
 			res.send(result);
-		}).catch(function(err) {
+		}).catch(function (err) {
 			//rollback
 			console.error('err');
 			console.error(err);
-			res.send({error: err});
+			res.send({
+				error: err
+			});
 		});
+
+	},
+	addRole: function (req, res) {
+		const role = req.body.role;
+		const user_id = req.params.user_id;
+		User_roles.findCreateFind({
+				where: {
+					user_id,
+					role
+				},
+				defaults: {
+					user_id,
+					role
+				}
+			})
+			.spread((user_role, created) => {
+				return res.send(user_role);
+			})
+			.catch(error => {
+				return res.serverError(error);
+			});
+	},
+
+	removeRole: function(req, res){
+		const role = req.body.role;
+		const user_id = req.params.user_id;
+		User_roles.destroy({ where: { user_id, role } })
+		.then(response => {
+			return response ? res.ok() : res.send(404);
+		})
+		.catch(error => {
+			return res.serverError(error);
+		})
 	}
 };

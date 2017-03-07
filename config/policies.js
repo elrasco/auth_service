@@ -37,9 +37,12 @@ module.exports.policies = {
     'find':           ['isAuthenticated', 'isReader'],
     'findOne':        ['isAuthenticated', 'isReader'],
     'create':         ['isAuthenticated', 'isCreator'],
+    'addRole':         ['isAuthenticated', 'isCreator'],
     'update':         ['isAuthenticated', 'isCreator'],
     'destroy':        ['isAuthenticated', 'isCreator'],
-    'resetPassword':  ['isAuthenticated', 'isCreator']
+    'resetPassword':  ['isAuthenticated', 'isCreator'],
+    'removeRole':  ['isAuthenticated', 'isCreator'],
+
   },
 
   'User_rolesController': {
