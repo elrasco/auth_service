@@ -36,8 +36,8 @@ module.exports.routes = {
   'POST /auth/issueforuser/:type': 'AuthController.issueForUser',
 
 
-  'POST /api/user/:user_id/role': 'UserController.addRole',
-  'DELETE /api/user/:user_id/role': 'UserController.removeRole'
+  'POST /user/:user_id/role': 'UserController.addRole',
+  'DELETE /user/:user_id/role': 'UserController.removeRole'
 
   /***************************************************************************
   *                                                                          *
