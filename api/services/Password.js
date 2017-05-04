@@ -10,10 +10,9 @@ module.exports.hash = function(password) {
 		      		reject(err);
 		      		throw new Error("error hashing user password!!");
 		    	} else {
-					
 		      		resolve(hash);
 		    	}
 		  	});
-		});	
+		});
 	});
 };

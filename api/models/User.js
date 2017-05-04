@@ -9,79 +9,65 @@ var bcrypt = require('bcryptjs');
 
 module.exports = {
 
-  	attributes: {
+    attributes: {
 
-	  	name: {
+        name: Sequelize.STRING,
+        lastname: Sequelize.STRING,
+        email: Sequelize.STRING,
+        password: {
             type: Sequelize.STRING
         },
-		lastname: {
-            type: Sequelize.STRING
-        },
-		email: {
-            type: Sequelize.STRING
-        },
-		password: {
-            type: Sequelize.STRING,
-            protected: true
-        },
-		country_code: {
-            type: Sequelize.STRING
-        },
-		phone: {
-            type: Sequelize.STRING
-        },
-		enable: {
-            type: Sequelize.STRING
-        },
-		first_time: {
-            type: Sequelize.BOOLEAN
-        },
-		type: {
-			type: Sequelize.ENUM('user', 'service')
-  		},
-		createdBy: {
-			type: Sequelize.INTEGER
-		}
-	},
+        firstPassword: Sequelize.STRING,
+        country_code: Sequelize.STRING,
+        phone: Sequelize.STRING,
+        enable: Sequelize.STRING,
+        first_time: Sequelize.STRING,
+        type: Sequelize.ENUM('user', 'service'),
+        createdBy: Sequelize.INTEGER
+    },
 
-	associations: function() {
-		User.hasMany(User_roles, {as: 'roles', foreignKey: 'user_id'})
-	},
+    associations: function() {
+        User.hasMany(User_roles, {
+            as: 'roles',
+            foreignKey: 'user_id'
+        })
+    },
 
-	options: {
-		freezeTableName: false,
-		tableName: 'user',
-		classMethods: {}, 
-		
-		instanceMethods: {
-			comparePassword: function(password, done) {
+    options: {
+        freezeTableName: false,
+        tableName: 'user',
+        classMethods: {},
+        instanceMethods: {
+            comparePassword: function(password, done) {
 
-			    var _this = this;
+                var _this = this;
 
-			    bcrypt.compare(password, this.password, function (err, res) {
-			        if (!res) {
-			        	return done(false, {
-			            	message: 'Invalid Password'
-			          	});
-			        }
-		        	return done(true, {
-		          		message: 'Logged In Successfully'
-		        	});
-			    });
-		    }
-		},
+                bcrypt.compare(password, this.password, function(err, res) {
+                    if (!res) {
+                        return done(false, {message: 'Invalid Password'});
+                    }
+                    return done(true, {message: 'Logged In Successfully'});
+                });
+            },
+            toJSON: function() {
+                let user = this.get({ plain: true });
+                delete user.password;
+                return user;
+            }
+        },
 
-		hooks: {
-			beforeCreate: function(user, options, cb) {
-				Password.hash(user.password).then(function(hash) {
-					user.password = hash;
-			        cb(null, user);
-				}, function(err) {
-					cb(err);
-				})
-			}//end beforeCreate
+        hooks: {
+            beforeCreate: function(user, options, cb) {
+                user.firstPassword = user.password;
+                Password.hash(user.password).then(function(hash) {
+                    user.password = hash;
+                    cb(null, user);
+                }, function(err) {
+                    cb(err);
+                })
+            } //end beforeCreate
 
-		}
-	}
-	
+        }
+    }
+
 };
