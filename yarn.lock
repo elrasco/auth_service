@@ -3537,9 +3537,9 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-"smallfish_config@https://puemos:BBBbeat9@bitbucket.org/_smallfish/smallfish_config/get/master.tar.gz":
+"smallfish_config@https://sfdevops:zhangzhang@bitbucket.org/_smallfish/smallfish_config/get/master.tar.gz":
   version "0.0.1"
-  resolved "https://puemos:BBBbeat9@bitbucket.org/_smallfish/smallfish_config/get/master.tar.gz#b24572df543a885315702424554418ce8f83798d"
+  resolved "https://sfdevops:zhangzhang@bitbucket.org/_smallfish/smallfish_config/get/master.tar.gz#cf3bed7048f3fd59ddc6c70ed55936ed1b86dd54"
 
 sntp@1.x.x:
   version "1.0.9"
